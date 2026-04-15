@@ -11,18 +11,18 @@ namespace SourssiKeneroijaUtility
             // define the execution pipeline here via a series of transformations:
 
             // find all additional files that end with .txt
-            IncrementalValuesProvider<AdditionalText> textFiles = initKonteksti.AdditionalTextsProvider.Where(static file => file.Path.EndsWith(".txt"));
+            IncrementalValuesProvider<AdditionalText> textFiles = initKonteksti.AdditionalTextsProvider.Where(static tiedosto => tiedosto.Path.EndsWith(".txt"));
 
             // read their contents and save their name
-            IncrementalValuesProvider<(string name, string content)> namesAndContents = textFiles.Select((text, cancellationToken) => (name: Path.GetFileNameWithoutExtension(text.Path), content: text.GetText(cancellationToken)!.ToString()));
+            IncrementalValuesProvider<(string name, string content)> nimetJaSisallot = textFiles.Select((text, cancellationToken) => (name: Path.GetFileNameWithoutExtension(text.Path), content: text.GetText(cancellationToken)!.ToString()));
 
             // generate a class that contains their values as const strings
-            initKonteksti.RegisterSourceOutput(namesAndContents, (spc, nameAndContent) =>
+            initKonteksti.RegisterSourceOutput(nimetJaSisallot, (spc, nimiJaSisalto) =>
             {
-                spc.AddSource($"ConstStrings.{nameAndContent.name}", $@"
+                spc.AddSource($"ConstStrings.{nimiJaSisalto.name}", $@"
     public static partial class ConstStrings
     {{
-        public const string {nameAndContent.name} = ""{nameAndContent.content}"";
+        public const string {nimiJaSisalto.name} = ""{nimiJaSisalto.content}"";
     }}");
             });
         }
@@ -39,7 +39,7 @@ namespace SourssiKeneroijaUtility
                     if (string.IsNullOrWhiteSpace(rivi)) continue;
                     try
                     {
-                        var olio = new JsonSerializer.Deserialize<T>(rivi);
+                        var olio = new JsonSerializer.Deserialize(rivi);
                         if (olio != null)
                         {
                             tulos.Add(olio);
