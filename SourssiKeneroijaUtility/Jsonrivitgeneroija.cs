@@ -27,7 +27,7 @@ namespace SourssiKeneroijaUtility
             });
         }
 
-       static ValueTask<List<T>> LueJsonRivit(string osoite)
+       static ValueTask<List<T>> LueJsonRivit(string osoite) 
         {
             var tulos = new List<T>();
             try

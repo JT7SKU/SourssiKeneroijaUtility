@@ -8,57 +8,47 @@ using System.Text;
 namespace SourssiKeneroijaUtility
 {
     [Generator]
-    public class Luokkageneroija : ISourceGenerator
+    public class Luokkageneroija : IIncrementalGenerator
     {
-        public void Execute(GeneratorExecutionContext context)
+
+        public void Initialize(IncrementalGeneratorInitializationContext context)
         {
-             
-            // Retrieve syntax receiver
-            if (context.SyntaxReceiver is not LuokkaSyntaxReceiver receiver)
-                return;
+            // Register a syntax provider that filters class declarations
+            var classDeclarations = context.SyntaxProvider
+                .CreateSyntaxProvider(
+                    predicate: static (s, _) => s is ClassDeclarationSyntax, // Only consider class nodes
+                    transform: static (ctx, _) => (ClassDeclarationSyntax)ctx.Node
+                )
+                .Collect(); // Collect all found class declarations
 
-            foreach (var classDeclaration in receiver.CandidateClasses)
+            // Register source output
+            context.RegisterSourceOutput(classDeclarations, (spc, luokat) =>
             {
-                string className = classDeclaration.Identifier.Text;
+                foreach (var classDeclaration in luokat)
+                {
+                    string luokkaNimi = classDeclaration.Identifier.Text;
 
-                // Generate a generic class factory constrained where T : class
-                string source = $@"
-using System;
+                    // Generate a simple factory with generic constraint where T : class
+                    string source = $@"
 using System;
 
 namespace Generated
 {{
-    public static class {className}Factory
+    public static class {luokkaNimi}Factory
     {{
         public static T CreateInstance<T>() where T : class, new()
         {{
             return new T();
         }}
     }}
-}}
-";
-            context.AddSource($"{className}Factory.g.cs", SourceText.From(source, Encoding.UTF8));
-        }
-        }
-
-        public void Initialize(GeneratorInitializationContext context)
-        {
-            // Optional: Register a syntax receiver if needed
-            context.RegisterForSyntaxNotifications(() => new LuokkaSyntaxReceiver());
-        }
-        // Syntax receiver to collect candidate classes
-        private class LuokkaSyntaxReceiver : ISyntaxReceiver
-        {
-            public List<ClassDeclarationSyntax> CandidateClasses { get; } = new();
-
-            public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
-            {
-                if (syntaxNode is ClassDeclarationSyntax classDeclaration)
-                {
-                    CandidateClasses.Add(classDeclaration);
+}}";
+                    spc.AddSource($"{luokkaNimi}Factory.g.cs", SourceText.From(source, Encoding.UTF8));
                 }
-            }
+            });
         }
+
+
+
     }
     
 }
