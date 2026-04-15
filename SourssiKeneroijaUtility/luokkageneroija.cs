@@ -11,30 +11,30 @@ namespace SourssiKeneroijaUtility
     public class Luokkageneroija : IIncrementalGenerator
     {
 
-        public void Initialize(IncrementalGeneratorInitializationContext context)
+        public void Initialize(IncrementalGeneratorInitializationContext kontentti)
         {
             // Register a syntax provider that filters class declarations
-            var classDeclarations = context.SyntaxProvider
+            var luokkaKuvaukset = kontentti.SyntaxProvider
                 .CreateSyntaxProvider(
                     predicate: static (s, _) => s is ClassDeclarationSyntax, // Only consider class nodes
-                    transform: static (ctx, _) => (ClassDeclarationSyntax)ctx.Node
+                    transform: static (ktx, _) => (ClassDeclarationSyntax)ktx.Node
                 )
                 .Collect(); // Collect all found class declarations
 
             // Register source output
-            context.RegisterSourceOutput(classDeclarations, (spc, luokat) =>
+            kontentti.RegisterSourceOutput(luokkaKuvaukset, (spc, luokat) =>
             {
-                foreach (var classDeclaration in luokat)
+                foreach (var luokkaKuvaus in luokat)
                 {
-                    string luokkaNimi = classDeclaration.Identifier.Text;
+                    string luokkaNimi = luokkaKuvaus.Identifier.Text;
 
                     // Generate a simple factory with generic constraint where T : class
-                    string source = $@"
+                    string lahde = $@"
 using System;
 
 namespace Generated
 {{
-    public static class {luokkaNimi}Factory
+    public static class {luokkaNimi}
     {{
         public static T CreateInstance<T>() where T : class, new()
         {{
@@ -42,7 +42,7 @@ namespace Generated
         }}
     }}
 }}";
-                    spc.AddSource($"{luokkaNimi}Factory.g.cs", SourceText.From(source, Encoding.UTF8));
+                    spc.AddSource($"{luokkaNimi}.g.cs", SourceText.From(lahde, Encoding.UTF8));
                 }
             });
         }
