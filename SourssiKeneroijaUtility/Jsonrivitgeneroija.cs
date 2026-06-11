@@ -1,4 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Text;
+using SourssiKeneroijaUtility.JSONRivit;
+using System.Text;
 using System.Text.Json;
 
 namespace SourssiKeneroijaUtility
@@ -27,7 +30,17 @@ namespace SourssiKeneroijaUtility
             });
         }
 
-       static ValueTask<List<T>> LueJsonRivit(string osoite) 
+        static void Execute(JsonRivit2Generoi? jsonRivit2Generate, SourceProductionContext konteksti)
+        {
+            if (jsonRivit2Generate is { } arvo)
+            {
+                // generate the source code and add it to the output
+                string result = SourssiGeneroijaApulainen.GeneroiLaajennusLuokka(arvo);
+                // Create a separate partial class file for each enum
+                konteksti.AddSource($"JsonRivitLaajennukset.{arvo.Nimi}.g.cs", SourceText.From(result, Encoding.UTF8));
+            }
+        }
+        static ValueTask<List<T>> LueJsonRivit(string osoite) 
         {
             var tulos = new List<T>();
             try

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SourssiKeneneroijaUtility.LuokkaGeneraattorit
+namespace SourssiKeneroijaUtility.LuokkaGeneraattorit
 {
     public static class SourssiGeneroijaApulainen
     {

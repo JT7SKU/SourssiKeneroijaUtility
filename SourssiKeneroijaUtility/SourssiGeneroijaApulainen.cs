@@ -21,7 +21,7 @@ namespace SourssiKeneroijaUtility.JSONRivit
             sb.Append(@"
 namespace SourssiKeneroijaUtility.EnumGeneraattorit
 {
-    public static partial class JsonRivitLaajenokset
+    public static partial class JsonRivitLaajennokset
     {");
             sb.Append(@"
             public static string ToStringFast(this ").Append(jsonRivit2Generoi.Nimi).Append(@" arvo)

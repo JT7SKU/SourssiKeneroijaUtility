@@ -7,7 +7,7 @@ namespace SourssiKeneroijaUtility.JSONRivit
     public readonly record struct JsonRivit2Generoi
     {
         public readonly string Nimi;
-        public readonly JsonRIviTaulukko<string> Arvot;
+        public readonly JsonRiviTaulukko<string> Arvot;
 
         public JsonRivit2Generoi(string nimi, List<string> arvot)
         {

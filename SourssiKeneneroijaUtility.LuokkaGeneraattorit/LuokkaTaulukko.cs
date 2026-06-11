@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace SourssiKeneroijaUtility.JSONRivit
+namespace SourssiKeneroijaUtility.LuokkaGeneraattorit
 {
-    public readonly struct JsonRiviTaulukko<T> : IEquatable<JsonRiviTaulukko<T>>, IReadOnlyCollection<T>
+    public readonly struct LuokkaTaulukko<T> : IEquatable<LuokkaTaulukko<T>>, IReadOnlyCollection<T>
      where T : IEquatable<T>
     {
         /// <summary>
@@ -18,12 +18,12 @@ namespace SourssiKeneroijaUtility.JSONRivit
         /// Creates a new <see cref="EquatableArray{T}"/> instance.
         /// </summary>
         /// <param name="Taulukko">The input <see cref="ImmutableArray{T}"/> to wrap.</param>
-        public JsonRiviTaulukko(T[] Taulukko)
+        public LuokkaTaulukko(T[] Taulukko)
         {
             _taulukko = Taulukko;
         }
 
-        public bool Equals(JsonRiviTaulukko<T> taulukko)
+        public bool Equals(LuokkaTaulukko<T> taulukko)
         {
             return AsSpan().SequenceEqual(taulukko.AsSpan());
         }
@@ -55,7 +55,7 @@ namespace SourssiKeneroijaUtility.JSONRivit
         /// <sinheritdoc/>
         public override bool Equals(object? obj)
         {
-            return obj is JsonRiviTaulukko<T> taulukko && this.Equals(taulukko);
+            return obj is LuokkaTaulukko<T> taulukko && this.Equals(taulukko);
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -67,11 +67,11 @@ namespace SourssiKeneroijaUtility.JSONRivit
         {
             return ((IEnumerable<T>)(_taulukko ?? Array.Empty<T>())).GetEnumerator();
         }
-        public static bool operator ==(JsonRiviTaulukko<T> left, JsonRiviTaulukko<T> right)
+        public static bool operator ==(LuokkaTaulukko<T> left, LuokkaTaulukko<T> right)
         {
             return left.Equals(right);
         }
-        public static bool operator !=(JsonRiviTaulukko<T> left, JsonRiviTaulukko<T> right)
+        public static bool operator !=(LuokkaTaulukko<T> left, LuokkaTaulukko<T> right)
         {
             return !left.Equals(right);
         }
