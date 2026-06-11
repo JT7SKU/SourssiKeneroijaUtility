@@ -38,14 +38,14 @@ namespace SourssiKeneroijaUtility.EnumGeneraattori
             konteksti.RegisterSourceOutput(enums2Generoi,
                 static (spc, sourssi) => Execute(sourssi, spc));
         }
-        static void Execute(Enum2Generoi? enumToGenerate, SourceProductionContext context)
+        static void Execute(Enum2Generoi? enumToGenerate, SourceProductionContext konteksti)
         {
             if (enumToGenerate is { } value)
             {
                 // generate the source code and add it to the output
                 string result = SourssiGeneroijaApulainen.GeneroiLaajennusLuokka(value);
                 // Create a separate partial class file for each enum
-                context.AddSource($"EnumExtensions.{value.Nimi}.g.cs", SourceText.From(result, Encoding.UTF8));
+                konteksti.AddSource($"EnumLaajennukset.{value.Nimi}.g.cs", SourceText.From(result, Encoding.UTF8));
             }
         }
 
@@ -55,21 +55,21 @@ namespace SourssiKeneroijaUtility.EnumGeneraattori
             var enumDeclarationSyntax = (EnumDeclarationSyntax)kontexti.Node;
 
             // loop through all the attributes on the method
-            foreach (AttributeListSyntax attributeListSyntax in enumDeclarationSyntax.AttributeLists)
+            foreach (AttributeListSyntax attribuuttiListaSyntaksi in enumDeclarationSyntax.AttributeLists)
             {
-                foreach (AttributeSyntax attributeSyntax in attributeListSyntax.Attributes)
+                foreach (AttributeSyntax attribuuttiSyntaksi in attribuuttiListaSyntaksi.Attributes)
                 {
-                    if (kontexti.SemanticModel.GetSymbolInfo(attributeSyntax).Symbol is not IMethodSymbol attributeSymbol)
+                    if (kontexti.SemanticModel.GetSymbolInfo(attribuuttiSyntaksi).Symbol is not IMethodSymbol attribuuttiSymboli)
                     {
                         // weird, we couldn't get the symbol, ignore it
                         continue;
                     }
 
-                    INamedTypeSymbol attributeContainingTypeSymbol = attributeSymbol.ContainingType;
-                    string kokoNimi = attributeContainingTypeSymbol.ToDisplayString();
+                    INamedTypeSymbol attributeContainingTypeSymboli = attribuuttiSymboli.ContainingType;
+                    string kokoNimi = attributeContainingTypeSymboli.ToDisplayString();
 
                     // Is the attribute the [EnumExtensions] attribute?
-                    if (kokoNimi == "NetEscapades.EnumGenerators.EnumExtensionsAttribute")
+                    if (kokoNimi == "SourssiKeneroijaUtility.EnumGeneraattorit.EnumLaajennuksetAttribuutti")
                     {
                         // return the enum. Implementation shown in section 7.
                         return HaeEnum2Generoi(kontexti.SemanticModel, enumDeclarationSyntax);

@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
+using SourssiKeneneroijaUtility.LuokkaGeneraattorit;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -45,6 +46,16 @@ namespace SourssiKeneroijaUtility.LuokkaGeneraattorit
                     spc.AddSource($"{luokkaNimi}.g.cs", SourceText.From(lahde, Encoding.UTF8));
                 }
             });
+        }
+        static void Execute(Luokka2Generoi? luokka2Generoi, SourceProductionContext konteksti)
+        {
+            if (luokka2Generoi is { } arvo)
+            {
+                // generate the source code and add it to the output
+                string result = SourssiGeneroijaApulainen.GeneroiLaajennusLuokka(arvo);
+                // Create a separate partial class file for each enum
+                konteksti.AddSource($"LuokkaLaajennukset.{arvo.Nimi}.g.cs", SourceText.From(result, Encoding.UTF8));
+            }
         }
 
 
