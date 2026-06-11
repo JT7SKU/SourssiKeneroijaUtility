@@ -1,3 +1,4 @@
 <Solution>
-  <Project Path="SourssiKeneroijaUtility/SourssiKeneroijaUtility.csproj" />
+  <Project Path="SourssiKeneroijaUtility.EnumGeneraattori/SourssiKeneroijaUtility.EnumGeneraattori.csproj" Id="7befeddd-5440-4121-b97a-f67c20d212e3" />
+  <Project Path="SourssiKeneroijaUtility/SourssiKeneroijaUtility.JSONRivit.csproj" />
 </Solution>
