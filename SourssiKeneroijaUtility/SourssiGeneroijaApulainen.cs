@@ -1,10 +1,8 @@
-﻿using Microsoft.CodeAnalysis;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Text;
 
-namespace SourssiKeneroijaUtility.EnumGeneraattori
+namespace SourssiKeneroijaUtility.JSONRivit
 {
     public static class SourssiGeneroijaApulainen
     {
@@ -12,31 +10,29 @@ namespace SourssiKeneroijaUtility.EnumGeneraattori
         namespace SourssiKeneroijaUtility.EnumGeneraattorit
 {
     [System.AttributeUsage(System.AttributeTargets.Enum)]
-    public class EnumExtensionsAttribute : System.Attribute
+    public class JsonLinesExtensionAttribute : System.Attribute
     {
     }
     }";
 
-        
-
-        public static string GeneroiLaajennusLuokka(Enum2Generoi enum2Generoi)
+        public static string GeneroiLaajennusLuokka(JsonRivit2Generoi jsonRivit2Generoi)
         {
             var sb = new StringBuilder();
             sb.Append(@"
 namespace SourssiKeneroijaUtility.EnumGeneraattorit
 {
-    public static partial class EnumExtensions
+    public static partial class JsonRivitLaajenokset
     {");
             sb.Append(@"
-            public static string ToStringFast(this ").Append(enum2Generoi.Nimi).Append(@" arvo)
+            public static string ToStringFast(this ").Append(jsonRivit2Generoi.Nimi).Append(@" arvo)
                 => arvo switch
                 {");
-            foreach (var member in enum2Generoi.Arvot)
+            foreach (var jasen in jsonRivit2Generoi.Arvot)
             {
                 sb.Append(@"
-            ").Append(enum2Generoi.Nimi).Append('.').Append(member)
+            ").Append(jsonRivit2Generoi.Nimi).Append('.').Append(jasen)
                     .Append(" => nameof(")
-                    .Append(enum2Generoi.Nimi).Append('.').Append(member).Append("),");
+                    .Append(jsonRivit2Generoi.Nimi).Append('.').Append(jasen).Append("),");
             }
 
             sb.Append(@"

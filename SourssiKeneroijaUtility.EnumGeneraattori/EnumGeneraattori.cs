@@ -17,7 +17,7 @@ namespace SourssiKeneroijaUtility.EnumGeneraattori
                 SourceText.From(SourssiGeneroijaApulainen.Attribuutti, Encoding.UTF8)));
 
             // Do a simple filter for enums
-            IncrementalValuesProvider<Enum2Generoi?> enumsToGenerate = konteksti.SyntaxProvider
+            IncrementalValuesProvider<Enum2Generoi?> enums2Generoi = konteksti.SyntaxProvider
                 .CreateSyntaxProvider(
                     predicate: static (s, _) => IsSyntaxTargetForGeneration(s), // select enums with attributes
                     transform: static (ctx, _) => GetSemanticTargetForGeneration(ctx)) // select enums with the [EnumExtensions] attribute and extract details
@@ -35,7 +35,7 @@ namespace SourssiKeneroijaUtility.EnumGeneraattori
     => node is EnumDeclarationSyntax m && m.AttributeLists.Count > 0;
 
             // Generate source code for each enum found
-            konteksti.RegisterSourceOutput(enumsToGenerate,
+            konteksti.RegisterSourceOutput(enums2Generoi,
                 static (spc, sourssi) => Execute(sourssi, spc));
         }
         static void Execute(Enum2Generoi? enumToGenerate, SourceProductionContext context)
