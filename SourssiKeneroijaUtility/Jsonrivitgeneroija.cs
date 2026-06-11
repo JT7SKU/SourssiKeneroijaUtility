@@ -14,10 +14,10 @@ namespace SourssiKeneroijaUtility
             // define the execution pipeline here via a series of transformations:
 
             // find all additional files that end with .txt
-            IncrementalValuesProvider<AdditionalText> textFiles = initKonteksti.AdditionalTextsProvider.Where(static tiedosto => tiedosto.Path.EndsWith(".txt"));
+            IncrementalValuesProvider<AdditionalText> tekstiTiedostot = initKonteksti.AdditionalTextsProvider.Where(static tiedosto => tiedosto.Path.EndsWith(".txt"));
 
             // read their contents and save their name
-            IncrementalValuesProvider<(string name, string content)> nimetJaSisallot = textFiles.Select((text, cancellationToken) => (name: Path.GetFileNameWithoutExtension(text.Path), content: text.GetText(cancellationToken)!.ToString()));
+            IncrementalValuesProvider<(string name, string content)> nimetJaSisallot = tekstiTiedostot.Select((text, cancellationToken) => (name: Path.GetFileNameWithoutExtension(text.Path), content: text.GetText(cancellationToken)!.ToString()));
 
             // generate a class that contains their values as const strings
             initKonteksti.RegisterSourceOutput(nimetJaSisallot, (spc, nimiJaSisalto) =>

@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace SourssiKeneroijaUtility.EnumGeneraattori
+namespace SourssiKeneroijaUtility.EnumGeneraattorit
 {
     public readonly struct EquatableArray<T> : IEquatable<EquatableArray<T>>, IReadOnlyCollection<T>
      where T : IEquatable<T>

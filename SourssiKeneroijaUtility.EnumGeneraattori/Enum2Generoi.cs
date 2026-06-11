@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SourssiKeneroijaUtility.EnumGeneraattori
+namespace SourssiKeneroijaUtility.EnumGeneraattorit
 {
     public readonly record struct Enum2Generoi
     {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Text;
 
-namespace SourssiKeneroijaUtility.EnumGeneraattori
+namespace SourssiKeneroijaUtility.EnumGeneraattorit
 {
     public static class SourssiGeneroijaApulainen
     {
