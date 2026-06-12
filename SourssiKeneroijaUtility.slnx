@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/Testi Generoijat/">
+    <Project Path="SourssiKeneroijaUtility.EnumIntegrointiTestit/SourssiKeneroijaUtility.EnumIntegrointiTestit.csproj" Id="b6e95bee-41dd-4818-99d3-703a72145a9b" />
     <Project Path="SourssiKeneroijaUtility.EnumTestit/SourssiKeneroijaUtility.EnumTestit.csproj" Id="49e74b2b-6bc2-4fc2-bd7f-0bc8f059565f" />
     <Project Path="SourssiKeneroijaUtility.LuokkaTestit/SourssiKeneroijaUtility.LuokkaTestit.csproj" Id="17a8e1a7-db73-42b1-9a73-2eadcb39cbc0" />
   </Folder>
