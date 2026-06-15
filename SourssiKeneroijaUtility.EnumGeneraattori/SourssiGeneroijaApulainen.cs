@@ -19,31 +19,31 @@ namespace SourssiKeneroijaUtility.EnumGeneraattorit
 
         
 
-        public static string GeneroiLaajennusLuokka(Enum2Generoi enum2Generoi)
+        public static string GeneroiLaajennusLuokka(List<Enum2Generoi> enums2Generoi)
         {
             var sb = new StringBuilder();
             sb.Append(@"
 namespace SourssiKeneroijaUtility.EnumGeneraattorit
-{
-    public static partial class EnumExtensions
-    {");
-            sb.Append(@"
+{");
+            foreach (var enum2Generoi in enums2Generoi)
+            {
+                sb.Append(@"public static partial class ").Append(enum2Generoi.LaajennusNimi).Append(@"
             public static string ToStringFast(this ").Append(enum2Generoi.Nimi).Append(@" arvo)
                 => arvo switch
                 {");
-            foreach (var member in enum2Generoi.Arvot)
-            {
-                sb.Append(@"
-            ").Append(enum2Generoi.Nimi).Append('.').Append(member)
-                    .Append(" => nameof(")
-                    .Append(enum2Generoi.Nimi).Append('.').Append(member).Append("),");
-            }
+                foreach (var jasen in enum2Generoi.Arvot)
+                {
+                    sb.Append(@"
+            ").Append(enum2Generoi.Nimi).Append('.').Append(jasen)
+                        .Append(" => nameof(")
+                        .Append(enum2Generoi.Nimi).Append('.').Append(jasen).Append("),");
+                }
 
-            sb.Append(@"
+                sb.Append(@"
                 _ => value.ToString(),
             };
 ");
-
+            }
             sb.Append(@"
     }
 }");

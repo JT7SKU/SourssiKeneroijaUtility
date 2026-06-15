@@ -6,13 +6,15 @@ namespace SourssiKeneroijaUtility.EnumGeneraattorit
 {
     public readonly record struct Enum2Generoi
     {
+        public readonly string LaajennusNimi;
         public readonly string Nimi;
-        public readonly EquatableArray<string> Arvot;
+        public readonly List<string> Arvot;
 
-        public Enum2Generoi(string nimi, List<string> arvot)
+        public Enum2Generoi(string laajennusNimi ,string nimi, List<string> arvot)
         {
             Nimi = nimi;
-            Arvot = new(arvot.ToArray());
+            Arvot = arvot;
+            LaajennusNimi = laajennusNimi;
         }
     }
 }

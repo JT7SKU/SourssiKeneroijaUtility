@@ -12,6 +12,8 @@ namespace SourssiKeneroijaUtility
         public void Initialize(IncrementalGeneratorInitializationContext initKonteksti)
         {
             // define the execution pipeline here via a series of transformations:
+            initKonteksti.RegisterPostInitializationOutput(ktx => ktx.AddSource(
+                ".g.cs",SourceText.From(SourssiGeneroijaApulainen.Attribuutti, Encoding.UTF8)));
 
             // find all additional files that end with .txt
             IncrementalValuesProvider<AdditionalText> tekstiTiedostot = initKonteksti.AdditionalTextsProvider.Where(static tiedosto => tiedosto.Path.EndsWith(".txt"));
@@ -40,9 +42,9 @@ namespace SourssiKeneroijaUtility
                 konteksti.AddSource($"JsonRivitLaajennukset.{arvo.Nimi}.g.cs", SourceText.From(result, Encoding.UTF8));
             }
         }
-        static ValueTask<List<T>> LueJsonRivit(string osoite) 
+        static List<JsonRivit2Generoi> LueJsonRivit(string osoite) 
         {
-            var tulos = new List<T>();
+            var tulos = new List<JsonRivit2Generoi>();
             try
             {
                 using var lukija = new StreamReader(osoite);
