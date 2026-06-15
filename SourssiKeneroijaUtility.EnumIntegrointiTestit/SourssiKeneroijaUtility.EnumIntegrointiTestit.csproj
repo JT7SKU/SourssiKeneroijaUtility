@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SourssiKeneroijaUtility.EnumGeneraattori\SourssiKeneroijaUtility.EnumGeneraattorit.csproj" />
+    <ProjectReference Include="..\SourssiKeneroijaUtility.EnumGeneraattori\SourssiKeneroijaUtility.EnumGeneraattorit.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
   </ItemGroup>
 
   <ItemGroup>

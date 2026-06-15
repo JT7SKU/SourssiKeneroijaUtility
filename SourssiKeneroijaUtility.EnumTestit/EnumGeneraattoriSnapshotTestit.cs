@@ -9,7 +9,7 @@ namespace SourssiKeneroijaUtility.EnumTestit
         {
             // The source code to test
             var source = @"
-                    using NetEscapades.EnumGenerators;
+                    using SourssiKeneroijaUtility.EnumGeneraattorit;
 
                     ";
 

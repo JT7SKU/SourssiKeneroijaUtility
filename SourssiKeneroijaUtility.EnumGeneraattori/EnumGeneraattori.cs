@@ -16,7 +16,7 @@ namespace SourssiKeneroijaUtility.EnumGeneraattorit
 
             // Add the marker attribute to the compilation
             konteksti.RegisterPostInitializationOutput(ktx => ktx.AddSource(
-                "EnumExtensionsAttribute.g.cs",
+                "EnumLaajennusAttribuutti.g.cs",
                 SourceText.From(SourssiGeneroijaApulainen.Attribuutti, Encoding.UTF8)));
 
             // Do a simple filter for enums
@@ -26,13 +26,7 @@ namespace SourssiKeneroijaUtility.EnumGeneraattorit
                     transform: static (ktx, _) => HaeSemanttinenKohdeValmisGenerointiin(ktx)) // select enums with the [EnumExtensions] attribute and extract details
                 .Where(static m => m is not null); // Filter out errors that we don't care about
 
-            //If you're targeting the .NET 7 SDK, use this version instead:
-            //IncrementalValuesProvider<Enum2Generoi?> enumsToGenerate = konteksti.SyntaxProvider
-            //    .ForAttributeWithMetadataName(
-            //        "SourssiKeneroijaUtility.EnumGeneraattori.EnumAttribuutti",
-            //        predicate: static (s, _) => true,
-            //        transform: static (ctx, _) => HaeEnum2Generoi(ctx.SemanticModel, ctx.TargetNode))
-            //    .Where(static m => m is not null);
+            
 
             IncrementalValueProvider<(Compilation, ImmutableArray<EnumDeclarationSyntax>)> kompilationJaEnums
             = konteksti.CompilationProvider.Combine(enumKuvaukset.Collect());
