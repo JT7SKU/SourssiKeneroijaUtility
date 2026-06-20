@@ -67,13 +67,13 @@ namespace SourssiKeneroijaUtility.JSONRivit
         {
             return ((IEnumerable<T>)(_taulukko ?? Array.Empty<T>())).GetEnumerator();
         }
-        public static bool operator ==(JsonRiviTaulukko<T> left, JsonRiviTaulukko<T> right)
+        public static bool operator ==(JsonRiviTaulukko<T> vasen, JsonRiviTaulukko<T> oikea)
         {
-            return left.Equals(right);
+            return vasen.Equals(oikea);
         }
-        public static bool operator !=(JsonRiviTaulukko<T> left, JsonRiviTaulukko<T> right)
+        public static bool operator !=(JsonRiviTaulukko<T> vasen, JsonRiviTaulukko<T> oikea)
         {
-            return !left.Equals(right);
+            return !vasen.Equals(oikea);
         }
     }
 }

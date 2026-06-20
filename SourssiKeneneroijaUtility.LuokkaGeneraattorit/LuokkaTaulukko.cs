@@ -55,13 +55,13 @@ namespace SourssiKeneroijaUtility.LuokkaGeneraattorit
         {
             return ((IEnumerable<T>)(_taulukko ?? Array.Empty<T>())).GetEnumerator();
         }
-        public static bool operator ==(LuokkaTaulukko<T> left, LuokkaTaulukko<T> right)
+        public static bool operator ==(LuokkaTaulukko<T> vasen, LuokkaTaulukko<T> oikea)
         {
-            return left.Equals(right);
+            return vasen.Equals(oikea);
         }
-        public static bool operator !=(LuokkaTaulukko<T> left, LuokkaTaulukko<T> right)
+        public static bool operator !=(LuokkaTaulukko<T> vasen, LuokkaTaulukko<T> oikea)
         {
-            return !left.Equals(right);
+            return !vasen.Equals(oikea);
         }
 
     }
