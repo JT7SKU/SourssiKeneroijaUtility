@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SourssiKeneroijaUtility.EnumIntegrointiTestit
 {
-    [EnumLaajennokset]
+    [EnumLaajennus]
     [Flags]
     public enum Vari
     {

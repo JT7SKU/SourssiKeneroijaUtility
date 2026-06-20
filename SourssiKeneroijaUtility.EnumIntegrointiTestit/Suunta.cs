@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SourssiKeneroijaUtility.EnumIntegrointiTestit
 {
-    [EnumLaajennuket(LaajennusLuokkaNimi = "SuuntaLaajennus")]
+    [EnumLaajennus(LaajennusLuokkaNimi = "SuuntaLaajennus")]
     public enum Suunta
     {
         Vasen,

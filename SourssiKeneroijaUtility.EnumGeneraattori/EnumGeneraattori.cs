@@ -10,13 +10,13 @@ namespace SourssiKeneroijaUtility.EnumGeneraattorit
     [Generator]
     public class EnumGeneraattori : IIncrementalGenerator
     {
-        private const string EnumLaajennusAttribuutti = "SourssiKeneroijaUtility.EnumGeneraattorit.EnumLaajennusAttribuutti";
+        private const string EnumLaajennusAttribuutti = "SourssiKeneroijaUtility.EnumGeneraattorit.EnumLaajennusAttribute";
         public void Initialize(IncrementalGeneratorInitializationContext konteksti)
         {
 
             // Add the marker attribute to the compilation
             konteksti.RegisterPostInitializationOutput(ktx => ktx.AddSource(
-                "EnumLaajennusAttribuutti.g.cs",
+                "EnumLaajennusAttribute.g.cs",
                 SourceText.From(SourssiGeneroijaApulainen.Attribuutti, Encoding.UTF8)));
 
             // Do a simple filter for enums
