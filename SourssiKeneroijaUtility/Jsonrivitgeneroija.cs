@@ -19,15 +19,15 @@ namespace SourssiKeneroijaUtility
             IncrementalValuesProvider<AdditionalText> tekstiTiedostot = initKonteksti.AdditionalTextsProvider.Where(static tiedosto => tiedosto.Path.EndsWith(".txt"));
 
             // read their contents and save their name
-            IncrementalValuesProvider<(string name, string content)> nimetJaSisallot = tekstiTiedostot.Select((text, cancellationToken) => (name: Path.GetFileNameWithoutExtension(text.Path), content: text.GetText(cancellationToken)!.ToString()));
+            IncrementalValuesProvider<(string nimi, string kontentti)> nimetJaSisallot = tekstiTiedostot.Select((text, cancellationToken) => (name: Path.GetFileNameWithoutExtension(text.Path), content: text.GetText(cancellationToken)!.ToString()));
 
             // generate a class that contains their values as const strings
             initKonteksti.RegisterSourceOutput(nimetJaSisallot, (spc, nimiJaSisalto) =>
             {
-                spc.AddSource($"ConstStrings.{nimiJaSisalto.name}", $@"
-    public static partial class ConstStrings
+                spc.AddSource($"JsonRivit.{nimiJaSisalto.nimi}.g.cs", $@"
+    public static partial class {nimiJaSisalto.nimi}
     {{
-        public const string {nimiJaSisalto.name} = ""{nimiJaSisalto.content}"";
+        public const string {nimiJaSisalto.nimi} = ""{nimiJaSisalto.kontentti}"";
     }}");
             });
         }

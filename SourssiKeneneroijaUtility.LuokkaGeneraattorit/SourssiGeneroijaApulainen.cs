@@ -13,7 +13,7 @@ namespace SourssiKeneroijaUtility.LuokkaGeneraattorit
             sb.Append($@"
 using System;
 
-namespace SourssiKeneroijaUtility.LuokkaGeneraattorit
+namespace {luokka2Generoi.LaajennusNimi}
 {{
     public static class {luokka2Generoi.Nimi}
     {{
