@@ -6,13 +6,15 @@ namespace SourssiKeneroijaUtility.JSONRivit
 {
     public readonly record struct JsonRivit2Generoi
     {
+        public readonly string LaajennusNimi;
         public readonly string Nimi;
         public readonly JsonRiviTaulukko<string> Arvot;
 
-        public JsonRivit2Generoi(string nimi, List<string> arvot)
+        public JsonRivit2Generoi(string nimi, List<string> arvot, string laajennusNimi)
         {
             this.Nimi = nimi;
             this.Arvot = new(arvot.ToArray());
+            LaajennusNimi = laajennusNimi;
         }
     }
 }
