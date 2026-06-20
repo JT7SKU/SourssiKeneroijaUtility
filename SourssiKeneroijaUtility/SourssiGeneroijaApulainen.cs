@@ -24,7 +24,7 @@ namespace SourssiKeneroijaUtility.EnumGeneraattorit
     public static partial class JsonRivitLaajennokset
     {");
             sb.Append(@"
-            public static string ToStringFast(this ").Append(jsonRivit2Generoi.Nimi).Append(@" arvo)
+            public static string ToLangalleNopeasti(this ").Append(jsonRivit2Generoi.Nimi).Append(@" arvo)
                 => arvo switch
                 {");
             foreach (var jasen in jsonRivit2Generoi.Arvot)
